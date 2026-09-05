@@ -1,1 +1,27 @@
-<h1>Hello from sifu</h1>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>wait...</title>
+</head>
+<body>
+  <p>sifuspinapp, <a id="link" href="https://sifuspin.com">here</a>.</p>
+
+  <script>
+    (function () {
+      var FALLBACK_URL = "https://sifuspin.com";
+
+      function redirectTo(url) {
+        var link = document.getElementById("link");
+        if (link) link.href = url;
+        window.location.replace(url);
+      }
+
+      fetch("/app.json")
+        .then(function (res) { return res.json(); })
+        .then(function (data) { redirectTo(data.url || FALLBACK_URL); })
+        .catch(function () { redirectTo(FALLBACK_URL); });
+    })();
+  </script>
+</body>
+</html>
